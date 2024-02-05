@@ -11,17 +11,17 @@ django.setup()
 
 # Import models from service_rest, here. Ignore vs-code error hinting
 # from service_rest.models import Something
-from service_rest.models import AutmobileVO
+from service_rest.models import AutomobileVO
 
 
 def poll():
     while True:
         print('Service poller polling for data')
         try:
-            response = requests.get("http://localhost:8100/api/automobiles/")
+            response = requests.get("http://inventory-api:8000/api/automobiles/")
             data = json.loads(response.content)
             for auto in data["autos"]:
-                AutmobileVO.objects.create_or_update(
+                AutomobileVO.objects.update_or_create(
                     vin = auto["vin"],
                     sold= auto["sold"]
                 )

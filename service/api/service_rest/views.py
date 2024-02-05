@@ -74,6 +74,7 @@ def api_list_appointments(request):
         )
     elif request.method == "POST":
         content = json.loads(request.body)
+        content["status"] = "Scheduled"
         try:
             technician = Technician.objects.get(id=content["technician"])
             content["technician"] = technician
@@ -123,4 +124,12 @@ def api_appointment_finish(request, id):
     return JsonResponse(
         {"appointment": appointment},
         encoder=AppointmentListEncoder
+    )
+
+@require_http_methods(["GET"])
+def api_list_AutomobileVOs(request):
+    automobiles = AutomobileVO.objects.all()
+    return JsonResponse(
+        {"AutomobileVOs": automobiles},
+        encoder=AutomobileVOListEncoder
     )

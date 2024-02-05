@@ -27,9 +27,12 @@ SECRET_KEY = 'django-insecure-h_*^s%*58o(szd%qaz!(^ky%nah+=yw+d=mkp_)01(r1@*$2t%
 DEBUG = True
 
 
+
+
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
     "inventory_rest.apps.InventoryRestConfig",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,6 +55,7 @@ MIDDLEWARE = [
 ALLOWED_HOSTS = [
     "localhost",
     "project-beta-inventory-api-1",
+    "inventory-api"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
