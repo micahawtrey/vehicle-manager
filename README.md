@@ -9,7 +9,24 @@ Team:
 
 ## Service microservice
 
-The Service Microservice allows technicians to manage service appointments.
+The Service Microservice allow the management of technicians and service appointments. It has three models with the following properties:
+
+AutomobileVO:
+- vin
+- sold
+
+Technician:
+- first_name
+- last_name
+- employee_id
+
+Appointment
+- date_time
+- reason
+- status
+- vin
+- customer
+- technician (foreign key to Technician)
 
 ### Technician Management:
 
@@ -23,40 +40,39 @@ JSON body to send data:
 Create A Technician (SEND THIS JSON BODY):
 ```
 {
-  "name": "The Dark Lord's Closet"
-  "section_number": 123,
-  "shelf_number": 12
+	"first_name": "Tayler",
+	"last_name": "Pelham",
+	"employee_id": 111133
 }
 ```
 The return value of creating a Technician:
 ```
 {
-	"href": "/api/locations/2/",
-	"id": 2,
-	"closet_name": "The Dark Lord's Closet",
-    "section_number": 123,
-    "shelf_number": 12
+	"new_tech": {
+		"id": 3,
+		"first_name": "Tayler",
+		"last_name": "Pelham",
+		"employee_id": 111133
+	}
 }
 ```
 Getting a list of Technicians return value:
 ```
 {
-  "manufacturers": [
-    {
-        "href": "/api/locations/2/",
-        "id": 2,
-        "closet_name": "The Dark Lord's Closet",
-        "section_number": 123,
-        "shelf_number": 12
-    },
-    {
-        "href": "/api/locations/5/",
-        "id": 5,
-        "closet_name": "Maddie's Closet",
-        "section_number": 12,
-        "shelf_number": 36
-    }
-  ]
+	"technicians": [
+		{
+			"id": 2,
+			"first_name": "Micah",
+			"last_name": "Awtrey",
+			"employee_id": "123456"
+		},
+		{
+			"id": 3,
+			"first_name": "Tayler",
+			"last_name": "Pelham",
+			"employee_id": "111133"
+		}
+	]
 }
 ```
 
