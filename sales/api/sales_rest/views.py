@@ -74,7 +74,7 @@ def api_show_salesperson(request, employee_id):
 def api_list_customer(request):
     if request.method == "GET":
         customer = Customer.objects.all()
-        return JsonResponse({'customer': customer}, encoder=CustomerListEncoder)
+        return JsonResponse({'customers': customer}, encoder=CustomerListEncoder)
     else: ###POST
         content = json.loads(request.body)
         customer = Customer.objects.create(**content)
