@@ -15,6 +15,8 @@ import SalespeopleCreate from './sales/SalespersonCreate';
 import SalespeopleHistory from './sales/SalespersonHistory';
 import Manufacturers from './inventory/Manufacturers';
 import CreateManufacturer from './inventory/CreateManufacturer';
+import Models from './inventory/Models';
+import CreateModel from './inventory/CreateModel';
 
 function App() {
   return (
@@ -25,6 +27,10 @@ function App() {
           <Route path="manufacturers">
             <Route path="" element={<Manufacturers />}/>
             <Route path="create" element={<CreateManufacturer />} />
+          </Route>
+          <Route path="models">
+            <Route path="" element={<Models />}/>
+            <Route path="create" element={<CreateModel />}/>
           </Route>
           <Route path="/" element={<MainPage />} />
           <Route path="technicians">
