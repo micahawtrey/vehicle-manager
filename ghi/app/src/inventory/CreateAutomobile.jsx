@@ -8,7 +8,7 @@ function CreateAutomobile () {
         color:'',
         year:'',
         vin:'',
-        model:''
+        model_id:''
     })
 
     const navigate = useNavigate()
@@ -72,8 +72,8 @@ function CreateAutomobile () {
                 <label htmlFor="vin">VIN</label>
               </div>
               <div className="mb-3">
-                <select value={formData.model} onChange={handleFormChange} required name="model" id="model" className="form-select">
-                  <option value=''>Choose a model</option>
+                <select value={formData.model_id} onChange={handleFormChange} required name="model_id" id="model_id" className="form-select">
+                  <option value='' >Choose a model</option>
                   {models.map(model => {
                     return (
                       <option key={model.id} value={model.id}>
