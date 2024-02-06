@@ -11,8 +11,8 @@ import CustomerList from './sales/CustomerList';
 import RecordSale from './sales/RecordSale';
 import SalesList from './sales/SalesList';
 import SalespeopleList from './sales/SalespeopleList';
-import SalespeopleCreate from './sales/SalespeopleCreate';
-import SalespeopleHistory from './sales/SalespeopleHistory';
+import SalespeopleCreate from './sales/SalespersonCreate';
+import SalespeopleHistory from './sales/SalespersonHistory';
 
 function App() {
   return (

@@ -31,7 +31,7 @@ function CustomerCreate () {
         };
         const response = await fetch(customerUrl, fetchConfig);
         if (response.ok) {
-            //Navigate 
+            //Navigate
         } else {
             alert("Customer couldn't be created")
         }
