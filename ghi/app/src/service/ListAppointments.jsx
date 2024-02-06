@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function ListAppointments() {
     const [appointments, setAppointments] = useState([])
+    const [automobileVOs, setAutomobileVOs] = useState([])
 
     const fetchData = async () => {
         const appointmentsUrl = "http://localhost:8080/api/appointments/"
@@ -10,7 +11,14 @@ export default function ListAppointments() {
             const data = await response.json()
             setAppointments(data.appointments)
         }
-        const automobileVOUrl = "http://localhost:8080/api/appointments/"
+        const automobileVOUrl = "http://localhost:8080/api/automobileVOs/"
+        const responseVO = await fetch(automobileVOUrl)
+        if (responseVO.ok) {
+            const data = await responseVO.json()
+            console.log(data)
+            setAutomobileVOs(data.AutomobileVOs.filter(auto => auto.vin))
+            console.log(automobileVOs)
+        }
     }
 
     useEffect(() => {
