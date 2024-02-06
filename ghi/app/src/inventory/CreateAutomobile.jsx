@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router"
 
 
 function CreateAutomobile () {
@@ -9,6 +10,8 @@ function CreateAutomobile () {
         vin:'',
         model:''
     })
+
+    const navigate = useNavigate()
 
     const getModels = async () => {
         const url = 'http://localhost:8100/api/models/'
@@ -44,7 +47,7 @@ function CreateAutomobile () {
         }
         const response = await fetch(autoUrl, fetchConfig)
         if (response.ok) {
-            nagivate('/automobiles/')
+            navigate('/automobiles/')
         } else {
             alert('Automobile could not be created.')
         }
