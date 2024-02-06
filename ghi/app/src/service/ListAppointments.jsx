@@ -29,21 +29,34 @@ export default function ListAppointments() {
         <div className="row">
             <div className="offset-1 col-10">
                 <div className="shadow p-4 mt-4">
+                    <h3>Service Appointments</h3>
                     <table className="table">
                         <thead>
                             <tr>
-                                <td>VIN</td>
-                                <td>Is VIP?</td>
-                                <td>Customer</td>
-                                <td>Date</td>
-                                <td>Time</td>
-                                <td>Technician</td>
-                                <td>Reason</td>
-                                <td>Update Status</td>
+                                <th>VIN</th>
+                                <th>Is VIP?</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Technician</th>
+                                <th>Reason</th>
+                                <th>Update Status</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            {appointments.map(appointment => {
+                                return (
+                                    <tr key={appointment.id}>
+                                        <td>{appointment.vin}</td>
+                                        <td>AHHHH</td>
+                                        <td>{appointment.customer}</td>
+                                        <td>DATE</td>
+                                        <td>TIME</td>
+                                        <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
+                                        <td>{appointment.reason}</td>
+                                        <td>UPDATE Status</td>
+                                    </tr>
+                                )})}
                         </tbody>
                     </table>
                 </div>

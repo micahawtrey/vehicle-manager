@@ -13,6 +13,8 @@ import SalesList from './sales/SalesList';
 import SalespeopleList from './sales/SalespeopleList';
 import SalespeopleCreate from './sales/SalespersonCreate';
 import SalespeopleHistory from './sales/SalespersonHistory';
+import Manufacturers from './inventory/Manufacturers';
+import CreateManufacturer from './inventory/CreateManufacturer';
 
 function App() {
   return (
@@ -20,12 +22,20 @@ function App() {
       <Nav />
       <div className="container">
         <Routes>
+          <Route path="manufacturers">
+            <Route path="" element={<Manufacturers />}/>
+            <Route path="create" element={<CreateManufacturer />} />
+          </Route>
           <Route path="/" element={<MainPage />} />
-          <Route path="/technicians" element={<ListTechnicians />} />
-          <Route path="/technicians/create" element={<CreateTechnician />} />
-          <Route path="/appointments" element={<ListAppointments />} />
-          <Route path="/appointments/create" element={<CreateAppointment />} />
-          <Route path="/appointments/history" element={<ServiceHistory />} />
+          <Route path="technicians">
+            <Route path="" element={<ListTechnicians />} />
+            <Route path="create" element={<CreateTechnician />} />
+          </Route>
+          <Route path="appointments">
+            <Route path="" element={<ListAppointments />} />
+            <Route path="create" element={<CreateAppointment />} />
+            <Route path="history" element={<ServiceHistory />} />
+          </Route>
           <Route path="customer">
             <Route path="" element={<CustomerList />}/>
             <Route path="create" element={<CustomerCreate />}/>
