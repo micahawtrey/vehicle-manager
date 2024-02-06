@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 
 export default function ServiceHistory() {
-    const [searchVIN, setSearchVIN] = useState("")
     const [automobileVOs, setAutomobileVOs] = useState([])
     const [appointments, setAppointments] = useState([])
+    const [search, setSearch] = useState("")
 
     const fetchData = async () => {
         const appointmentsUrl = "http://localhost:8080/api/appointments/"
@@ -16,7 +16,8 @@ export default function ServiceHistory() {
         const responseVO = await fetch(automobileVOUrl)
         if (responseVO.ok) {
             const data = await responseVO.json()
-            setAutomobileVOs(data.AutomobileVOs)
+            const autos = data.AutomobileVOs.map(auto => {return auto.vin})
+            setAutomobileVOs(autos)
         }
     }
 
@@ -24,12 +25,33 @@ export default function ServiceHistory() {
         fetchData()
     }, [])
 
+    const handleSearchChange = (e) => {
+        setSearch(e.target.value)
+    }
+
+    const handleSearch = async () => {
+        const appointmentsUrl = "http://localhost:8080/api/appointments/"
+        const responseAppt = await fetch(appointmentsUrl)
+        if (responseAppt.ok) {
+            const data = await responseAppt.json()
+            setAppointments(data.appointments)
+            setAppointments(appointments.map(appointment => {
+                if (appointment.vin === search) {
+                    return appointment
+                }}))
+        }
+    }
+
     return (
         <div className="row">
             <div className="offset-1 col-10">
                 <div className="shadow p-4 mt-4">
                     <h3>Service History</h3>
-                    <input type="text" className="form-control" name="searchVIN" id="searchVIN" placeholder="Search by VIN..." />
+                    <div className="input-group">
+                        <input onChange={handleSearchChange} type="text" value={search} className="form-control" name="searchVIN" id="searchVIN" placeholder="Search by VIN..." />
+                        <button onClick={handleSearch} className="btn btn-secondary">Search</button>
+                    </div>
+
                     <table className="table">
                         <thead>
                             <tr>
@@ -40,23 +62,32 @@ export default function ServiceHistory() {
                                 <th>Time</th>
                                 <th>Technician</th>
                                 <th>Reason</th>
-                                <th>Update Status</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             {appointments.map(appointment => {
+                                if (appointment) {
+                                  let vip = ""
+                                if (automobileVOs.includes(appointment.vin)) {
+                                    vip = "YES"
+                                } else {
+                                    vip = "NO"
+                                }
+                                const date = appointment.date_time.slice(0, 10)
+                                const time = appointment.date_time.slice(11, 16)
                                 return (
                                     <tr key={appointment.id}>
                                         <td>{appointment.vin}</td>
-                                        <td>AHHHH</td>
+                                        <td>{vip}</td>
                                         <td>{appointment.customer}</td>
-                                        <td>DATE</td>
-                                        <td>TIME</td>
+                                        <td>{date}</td>
+                                        <td>{time}</td>
                                         <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
                                         <td>{appointment.reason}</td>
-                                        <td>UPDATE Status</td>
+                                        <td>{appointment.status}</td>
                                     </tr>
-                                )})}
+                                )}})}
                         </tbody>
                     </table>
                 </div>

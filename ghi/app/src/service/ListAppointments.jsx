@@ -15,15 +15,26 @@ export default function ListAppointments() {
         const responseVO = await fetch(automobileVOUrl)
         if (responseVO.ok) {
             const data = await responseVO.json()
-            console.log(data)
-            setAutomobileVOs(data.AutomobileVOs.filter(auto => auto.vin))
-            console.log(automobileVOs)
+            const autos = data.AutomobileVOs.map(auto => auto.vin)
+            setAutomobileVOs(autos)
         }
     }
 
     useEffect(() => {
         fetchData()
     }, [])
+
+    const handleStatusChange = async (id, status) => {
+        const statusUrl = `http://localhost:8080/api/appointments/${id}/${status}/`
+        const fetchConfig = {
+            method: "PUT"
+        }
+        const response = await fetch(statusUrl, fetchConfig)
+        if (response.ok) {
+            setAppointments([])
+            fetchData()
+        }
+    }
 
     return (
         <div className="row">
@@ -44,19 +55,30 @@ export default function ListAppointments() {
                             </tr>
                         </thead>
                         <tbody>
-                            {appointments.map(appointment => {
-                                return (
+                        {appointments.map(appointment => {
+                                let vip = ""
+                                if (automobileVOs.includes(appointment.vin)) {
+                                    vip = "YES"
+                                } else {
+                                    vip = "NO"
+                                }
+                                const date = appointment.date_time.slice(0, 10)
+                                const time = appointment.date_time.slice(11, 16)
+                                if (appointment.status !== "Cancelled" && appointment.status !== "Finished") {return (
                                     <tr key={appointment.id}>
                                         <td>{appointment.vin}</td>
-                                        <td>AHHHH</td>
+                                        <td>{vip}</td>
                                         <td>{appointment.customer}</td>
-                                        <td>DATE</td>
-                                        <td>TIME</td>
+                                        <td>{date}</td>
+                                        <td>{time}</td>
                                         <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
                                         <td>{appointment.reason}</td>
-                                        <td>UPDATE Status</td>
+                                        <td>
+                                            <button onClick={() => {handleStatusChange(appointment.id, "cancel")}} className="btn btn-danger me-1">Cancel</button>
+                                            <button onClick={() => {handleStatusChange(appointment.id, "finish")}} className="btn btn-success">Finish</button>
+                                        </td>
                                     </tr>
-                                )})}
+                                )}})}
                         </tbody>
                     </table>
                 </div>

@@ -74,7 +74,7 @@ def api_list_appointments(request):
         )
     elif request.method == "POST":
         content = json.loads(request.body)
-        content["status"] = "Scheduled"
+        content["status"] = "Created"
         try:
             technician = Technician.objects.get(id=content["technician"])
             content["technician"] = technician
