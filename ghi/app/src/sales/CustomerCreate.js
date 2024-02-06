@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 
 function CustomerCreate () {
     const [formData, setFormData] = useState({
