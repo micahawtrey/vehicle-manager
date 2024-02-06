@@ -34,11 +34,15 @@ export default function ServiceHistory() {
         const responseAppt = await fetch(appointmentsUrl)
         if (responseAppt.ok) {
             const data = await responseAppt.json()
-            setAppointments(data.appointments)
-            setAppointments(appointments.map(appointment => {
-                if (appointment.vin === search) {
+            Promise.all([data]).then(() => {
+                if (search.length > 0) {
+                    setAppointments(data.appointments.map(appointment => {
+                    if (appointment.vin === search) {
                     return appointment
-                }}))
+                }}))} else {
+                    setAppointments(data.appointments)
+                }
+            })
         }
     }
 

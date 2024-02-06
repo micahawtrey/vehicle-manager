@@ -33,7 +33,6 @@ export default function CreateAppointment() {
                 technician: "",
                 date_time: "",
             })
-
         }
     }
 
