@@ -31,7 +31,7 @@ export default function Models() {
                         <tbody>
                             {models.map(model => {
                                 return (
-                                    <tr>
+                                    <tr key={model.id}>
                                         <td>{model.name}</td>
                                         <td>{model.manufacturer.name}</td>
                                         <td><img src={model.picture_url} style={{width: "300px"}}/></td>

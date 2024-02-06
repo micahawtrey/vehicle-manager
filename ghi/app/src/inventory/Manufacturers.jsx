@@ -30,7 +30,7 @@ export default function Manufacturers() {
                         <tbody>
                             {manufacturers.map(manufacturer => {
                                 return (
-                                    <tr>
+                                    <tr key={manufacturer.id}>
                                         <td>{manufacturer.name}</td>
                                     </tr>
                                 )
