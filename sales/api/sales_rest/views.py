@@ -15,7 +15,7 @@ class SalespersonDetailEncoder(ModelEncoder):
 
 class CustomerListEncoder(ModelEncoder):
     model = Customer
-    properties = ['first_name', 'last_name','address', 'phone_number']
+    properties = ['id', 'first_name', 'last_name','address', 'phone_number']
 
 class CustomerDetailEncoder(ModelEncoder):
     model = Customer
@@ -43,7 +43,6 @@ class SaleDetailEncoder(ModelEncoder):
     }
 
 
-
 # Create your views here.
 @require_http_methods(["GET", "POST"])
 def api_list_salesperson(request):
@@ -54,6 +53,7 @@ def api_list_salesperson(request):
         content = json.loads(request.body)
         salesperson = Salesperson.objects.create(**content)
         return JsonResponse(salesperson, encoder=SalespersonDetailEncoder, safe=False)
+
 
 @require_http_methods(["GET", "DELETE", "PUT"])
 def api_show_salesperson(request, employee_id):
@@ -103,6 +103,21 @@ def api_list_sales(request):
         return JsonResponse({'sales': sales}, encoder=SaleListEncoder)
     else: ###POST
         content = json.loads(request.body)
+
+        vin = content['automobile']
+        automobile = AutomobileVO.objects.get(vin=vin)
+        # automobile.sold = True
+        # automobile.save()
+        content['automobile'] = automobile
+
+        sp_id = content['salesperson']
+        salesperson = Salesperson.objects.get(employee_id=sp_id)
+        content['salesperson'] = salesperson
+
+        c_id = content['customer']
+        customer = Customer.objects.get(id=c_id)
+        content['customer'] = customer
+
         sale = Sale.objects.create(**content)
         return JsonResponse(sale, encoder=SaleDetailEncoder, safe=False)
 
