@@ -45,6 +45,7 @@ Each team member set up their own **poller** to get data from the **Inventory** 
 ### Manufacturers
 
 | Action | Method | URL |
+| ----------- | ----------- | ----------- |
 | List Manufacturers | GET | http://localhost:8100/api/manufacturers/ |
 | Create a Manufacturer | POST | http://localhost:8100/api/manufacturers/ |
 | Get a specific Manufacturer | GET | http://localhost:8100/api/manufacturers/:id/ |
@@ -88,6 +89,7 @@ Getting a list of Manufacturers return value:
 ### Vehicle Models
 
 | Action | Method | URL |
+| ----------- | ----------- | ----------- |
 | List Vehicle Models | GET | http://localhost:8100/api/models/ |
 | Create a Vehicle Model | POST | http://localhost:8100/api/models/ |
 | Get a specific Vehicle Model | GET | http://localhost:8100/api/models/:id/ |
@@ -140,6 +142,7 @@ Getting a list of Vehicle Models return value:
 ### Automobile
 
 | Action | Method | URL |
+| ----------- | ----------- | ----------- |
 | List Automobile | GET | http://localhost:8100/api/automobiles/ |
 | Create a Automobile | POST | http://localhost:8100/api/automobiles/ |
 | Get a specific Automobile | GET | http://localhost:8100/api/automobiles/:id/ |
@@ -236,6 +239,7 @@ Appointment
 ### Technician Management:
 
 | Action | Method | URL |
+| ----------- | ----------- | ----------- |
 | List Technicians | GET | http://localhost:8080/api/technicians/ |
 | Create A Technician | POST | http://localhost:8080/api/technicians/ |
 | Delete A Technician | DELETE | http://localhost:8080/api/technicians/:id/ |
@@ -285,6 +289,7 @@ Getting a list of Technicians return value:
 ### Appointment Management:
 
 | Action | Method | URL |
+| ----------- | ----------- | ----------- |
 | List Appointments | GET | http://localhost:8080/api/appointments/ |
 | Create An Appointment | POST | http://localhost:8080/api/appointments/ |
 | Delete An Appointment | DELETE | http://localhost:8080/api/appointments/:id/ |
