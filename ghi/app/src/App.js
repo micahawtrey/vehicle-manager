@@ -5,7 +5,7 @@ import CreateAppointment from './service/CreateAppointment';
 import CreateTechnician from './service/CreateTechnician';
 import ListTechnicians from './service/ListTechnicians';
 import ListAppointments from './service/ListAppointments';
-import ServiceHistory from './service/ServiceHistory';
+import ServiceHistory from './service/serviceHistory';
 import CustomerCreate from './sales/CustomerCreate';
 import CustomerList from './sales/CustomerList';
 import RecordSale from './sales/RecordSale';
@@ -42,7 +42,7 @@ function App() {
             <Route path="create" element={<CreateAppointment />} />
             <Route path="history" element={<ServiceHistory />} />
           </Route>
-          <Route path="customer">
+          <Route path="customers">
             <Route path="" element={<CustomerList />}/>
             <Route path="create" element={<CustomerCreate />}/>
           </Route>

@@ -3,20 +3,6 @@ import { useState, useEffect } from "react";
 function CustomerList () {
     const [customers, setCustomers] = useState([])
 
-
-    const handleDelete = async (e) => {
-      e.preventDefault();
-      const id = e.target.dataset.id
-      const url = `http://localhost:8090/api/customers/${id}/`
-      const fetchConfig = {method: "delete"};
-      const response = await fetch(url, fetchConfig);
-
-      if (response.ok) {
-        const data = await response.json()
-        fetchData()
-      }
-    }
-
     const fetchData = async () => {
         const url = 'http://localhost:8090/api/customers/';
         const response = await fetch(url);
@@ -49,7 +35,6 @@ function CustomerList () {
                     <td>{customer.last_name}</td>
                     <td>{customer.phone_number}</td>
                     <td>{customer.address}</td>
-                    <td><button onClick={handleDelete} data-id={customer.id} className="btn btn-danger">Delete</button></td>
                 </tr>
             )
         })}
