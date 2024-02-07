@@ -293,8 +293,8 @@ Getting a list of Technicians return value:
 | List Appointments | GET | http://localhost:8080/api/appointments/ |
 | Create An Appointment | POST | http://localhost:8080/api/appointments/ |
 | Delete An Appointment | DELETE | http://localhost:8080/api/appointments/:id/ |
-| Set Appointment Status to "canceled" | DELETE | http://localhost:8080/api/appointments/:id/cancel/ |
-| Set Appointment Status to "finished" | DELETE | http://localhost:8080/api/appointments/:id/finish/ |
+| Set Appointment Status to "canceled" | PUT | http://localhost:8080/api/appointments/:id/cancel/ |
+| Set Appointment Status to "finished" | PUT | http://localhost:8080/api/appointments/:id/finish/ |
 | List AutomobileVOs **(only for testing purposes)** | GET | http://localhost:8080/api/automobobileVOs/ |
 
 JSON body to send data:
@@ -366,5 +366,232 @@ The **poller** for **Service** polls the database every 60 seconds to ensure tha
 
 ## Sales microservice
 
-Explain your models and integration with the inventory
-microservice, here.
+The Sales microservice allows the management of salespeople and Sales. It has four models with the following properties:
+
+AutomobileVO:
+- vin
+- sold
+
+Salesperson:
+- first_name
+- last_name
+- employee_id
+
+Customer:
+- first_name
+- last_name
+- address
+- phone_number
+
+Sale:
+- price
+- automoible (foreign key to AutomobileVO)
+- customer (foreign key to Customer)
+- salesperson (foreign key to Salesperson)
+
+
+**AutomobileVO** is a value object that is acquired the **poller**. It refers back to the automobiles created and stored in the inventory service.
+
+**Sales** runs on the following URL and port:
+- http://localhost:8090/
+- port: 8090
+
+
+### Salespeople Management:
+
+| Action | Method | URL |
+| ----------- | ----------- | ----------- |
+| List Salespeople | GET | http://localhost:8090/api/salespeople/ |
+| Show a Salesperson | GET | http://localhost:8090/api/salespeople/:employee_id/ |
+| Create A Salesperson | POST | http://localhost:8090/api/salespeople/ |
+| Delete A Salesperson | DELETE | http://localhost:8090/api/salespeople/:employee_id/ |
+
+JSON body to send data:
+
+Create A Salesperson (SEND THIS JSON BODY):
+```
+{
+	"first_name": "Micah",
+	"last_name": "Awtrey",
+	"employee_id": "m_awtrey"
+}
+```
+The return value of creating a Salesperson:
+```
+{
+	"first_name": "Micah",
+	"last_name": "Awtrey",
+	"employee_id": "m_awtrey",
+	"id": 11
+}
+```
+Getting a list of Salespeople return value:
+```
+{
+	"salespeople": [
+		{
+			"first_name": "Micah",
+			"last_name": "Awtrey",
+			"employee_id": "m_awtrey",
+			"id": 11
+		},
+		{
+			"first_name": "Billy",
+			"last_name": "Bob",
+			"employee_id": "b_bob",
+			"id": 6
+		}
+	]
+}
+```
+
+
+### Customer Management:
+
+| Action | Method | URL |
+| ----------- | ----------- | ----------- |
+| List Customers | GET | http://localhost:8090/api/customers/ |
+| Show a Customer | GET | http://localhost:8090/api/customers/:id |
+| Create An Customer | POST | http://localhost:8090/api/customers/ |
+| Delete An Customer | DELETE | http://localhost:8090/api/customers/:id/ |
+
+
+JSON body to send data:
+
+Create or update a Customer (SEND THIS JSON BODY):
+```
+{
+	"first_name": "Billy",
+	"last_name": "Bob",
+	"address": "123 Main St Augusta, GA 30905",
+	"phone_number": "123-456-7890"
+}
+```
+The return value of creating a Customer:
+```
+{
+	"id": 5,
+	"first_name": "Billy",
+	"last_name": "Bob",
+	"address": "123 Main St Augusta, GA 30905",
+	"phone_number": "123-456-7890"
+}
+```
+Getting a list of Customers return value:
+```
+{
+	"customers": [
+		{
+			"id": 5,
+			"first_name": "Billy",
+			"last_name": "Bob",
+			"address": "123 Main St Augusta, GA 30905",
+			"phone_number": "123-456-7890"
+		},
+		{
+			"id": 6,
+			"first_name": "Judy",
+			"last_name": "Smith",
+			"address": "321 S Main St Augusta, GA 30905",
+			"phone_number": "098-765-4321"
+		}
+	]
+}
+```
+
+### Sale Management:
+
+| Action | Method | URL |
+| ----------- | ----------- | ----------- |
+| List Sales | GET | http://localhost:8090/api/sales/ |
+| Show a Sale | GET | http://localhost:8090/api/sales/:id |
+| Create An Sale | POST | http://localhost:8090/api/sales/ |
+| Delete An Sale | DELETE | http://localhost:8090/api/sales/:id/ |
+
+
+JSON body to send data:
+Create or update a Sale (SEND THIS JSON BODY):
+```
+{
+	"price": 10000,
+	"automobile": "1C3CC5FB2AN120174",
+	"customer": 5,
+	"salesperson": "m_awtrey"
+}
+```
+The return value of creating a Sale:
+```
+{
+	"id": 17,
+	"price": 10000,
+	"automobile": {
+		"vin": "1C3CC5FB2AN120174",
+		"sold": true
+	},
+	"customer": {
+		"id": 5,
+		"first_name": "Billy",
+		"last_name": "Bob",
+		"address": "123 Main St Augusta, GA 30905",
+		"phone_number": "123-456-7890"
+	},
+	"salesperson": {
+		"first_name": "Micah",
+		"last_name": "Awtrey",
+		"employee_id": "m_awtrey",
+		"id": 11
+	}
+}
+```
+Getting a list of Customers return value:
+```
+{
+	"sales": [
+		{
+			"id": 17,
+			"price": 10000,
+			"automobile": {
+				"vin": "1C3CC5FB2AN120174",
+				"sold": true
+			},
+			"customer": {
+				"id": 5,
+				"first_name": "Billy",
+				"last_name": "Bob",
+				"address": "123 Main St Augusta, GA 30905",
+				"phone_number": "123-456-7890"
+			},
+			"salesperson": {
+				"first_name": "Micah",
+				"last_name": "Awtrey",
+				"employee_id": "m_awtrey",
+				"id": 11
+			}
+		},
+		{
+			"id": 18,
+			"price": 15000,
+			"automobile": {
+				"vin": "4D2CC5GR2AN146927",
+				"sold": true
+			},
+			"customer": {
+				"id": 6,
+				"first_name": "Judy",
+				"last_name": "Smith",
+				"address": "321 S Main St Augusta, GA 30905",
+				"phone_number": "098-765-4321"
+			},
+			"salesperson": {
+				"first_name": "Billy",
+				"last_name": "Bob",
+				"employee_id": "b_bob",
+				"id": 6
+			}
+		}
+	]
+}
+```
+### Sales Poller
+
+The **poller** for **Sales** polls the database every 60 seconds to ensure that Sale has an up to date list of Automobiles. These are stored as **AutomobileVOs**. The **AutomobileVO** stores the VIN of the Automobile for use in retrieving data.

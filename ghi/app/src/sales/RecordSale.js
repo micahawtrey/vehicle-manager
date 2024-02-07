@@ -59,6 +59,7 @@ function RecordSale () {
         })
     }
     const nagivate = useNavigate()
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
 
