@@ -17,29 +17,35 @@ function CustomerList () {
       }, []);
 
     return (
-  <table className="table caption-top">
-  <caption><h1>Customer List</h1></caption>
-  <thead>
-    <tr>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Phone Number</th>
-      <th scope="col">Address</th>
-    </tr>
-  </thead>
-  <tbody>
-        {customers.map(customer => {
-            return (
-                <tr key={customer.id}>
-                    <td>{customer.first_name}</td>
-                    <td>{customer.last_name}</td>
-                    <td>{customer.phone_number}</td>
-                    <td>{customer.address}</td>
+      <div className="row">
+        <div className="offset-1 col-10">
+          <div className="shadow p-4 mt-4">
+            <h1>Customer List</h1>
+            <table className="table caption-top">
+              <thead>
+                <tr>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Phone Number</th>
+                  <th scope="col">Address</th>
                 </tr>
-            )
-        })}
-  </tbody>
-</table>
+              </thead>
+              <tbody>
+                    {customers.map(customer => {
+                        return (
+                            <tr key={customer.id}>
+                                <td>{customer.first_name}</td>
+                                <td>{customer.last_name}</td>
+                                <td>{customer.phone_number}</td>
+                                <td>{customer.address}</td>
+                            </tr>
+                        )
+                    })}
+              </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
     )
 }
 

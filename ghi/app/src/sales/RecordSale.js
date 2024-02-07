@@ -17,7 +17,12 @@ function RecordSale () {
         const response = await fetch(url)
         if (response.ok) {
             const data = await response.json()
-            setAutomobiles(data.autos)
+            const unsoldAutos = data.autos.filter(auto => {
+                if (!auto.sold) {
+                    return auto
+                }
+            })
+            setAutomobiles(unsoldAutos)
         }
     }
 
@@ -68,7 +73,20 @@ function RecordSale () {
         }
         const response = await fetch(salesUrl, fetchConfig)
         if (response.ok){
-            nagivate('/sales/')
+            //Set Vechile to Sold
+            const saleData = await response.json()
+            const autoUrl = `http://localhost:8100/api/automobiles/${saleData.automobile.vin}/`
+            const autoFetchConfig = {
+                method: 'put',
+                body: JSON.stringify({'sold': true}),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            }
+            const autoResponse = await fetch(autoUrl, autoFetchConfig)
+            if (autoResponse.ok) {
+                nagivate('/sales/')
+            }
         }
     }
 
@@ -113,7 +131,7 @@ function RecordSale () {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="price" className="form-label">Price</label>
-                    <input value={formData.price} onChange={handleFromChange} type="number" className="form-control" id="price" name="price" />
+                    <input value={formData.price} onChange={handleFromChange} required type="number" className="form-control" id="price" name="price" />
                 </div>
               <button className="btn btn-primary">Create</button>
             </form>
