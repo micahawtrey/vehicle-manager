@@ -38,7 +38,7 @@ function NoSales () {
             <div className="offset-4 col-6">
                 <div className="card text-center mb-3 mt-3 shadow p-4 mt-4" style={{width: "18rem"}}>
                     <div className="card-body">
-                        <b>No Sales</b>
+                        <b><h3>No Sales</h3></b>
                     </div>
                 </div>
             </div>
